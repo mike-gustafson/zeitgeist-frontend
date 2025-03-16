@@ -1,0 +1,82 @@
+nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  height: 50px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  height: 100%;
+  padding: 0 10px;
+}
+
+.nav-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #fff;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  height: 100%;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+}
+
+.link:hover {
+  opacity: 0.8;
+}
+
+.icon-wrapper {
+  position: relative;
+  width: 40px;
+  height: 50px;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0) scale(1);
+  transition: transform 0.3s ease;
+  z-index: 2;
+  font-size: 2em;
+}
+
+.icon-label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  z-index: 1;
+  font-size: 0.75em;
+  white-space: nowrap;
+}
+
+.link:hover .icon {
+  transform: translate(-50%, 15px) scale(0.6);
+  color: white;
+}
+
+.link:hover .icon-label {
+  opacity: 1;
+  z-index: 3;
+  color: white;
+}

@@ -1,0 +1,17 @@
+.feed {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.feed-main {
+    width: 65vw;
+}
+
+.feed-sidebar {
+    display: flex;            
+    justify-content: flex-end;
+    flex: 1;         
+}
