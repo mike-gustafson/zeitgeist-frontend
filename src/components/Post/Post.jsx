@@ -79,8 +79,7 @@ const Post = ({ post, onUpdatePost, onEditPost }) => {
         <a href={linkUrl} className="post-title" target="_blank" rel="noopener noreferrer">
           {post.title}
         </a>
-        {user && (post.user._id === user._id || post.user === user._id) && (
-          <div className="post-actions">
+        {user && post.user && (post.user._id === user._id || post.user === user._id) && (          <div className="post-actions">
             <span className="post-edit action-icon" onClick={() => onEditPost(post)}>
               <FaEdit />
             </span>
@@ -114,7 +113,9 @@ const Post = ({ post, onUpdatePost, onEditPost }) => {
         </div>
         <div className="post-right">
           <p>{post.description}</p>
+          {post.user && post.user.username && (
           <p>Posted by: {post.user.username}</p>
+        )}
         </div>
       </div>
     </main>
