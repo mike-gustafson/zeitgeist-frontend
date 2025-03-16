@@ -43,15 +43,15 @@ const Feed = () => {
   }, [sortBy]);
 
     return (
-      <main className="feed">
-        <div className="feed-main">
+      <main className="main">
+        <div className="feed">
           <ul>
               {posts.map((post) => (
                 <Post key={post._id} post={post} onUpdatePost={updatePost} />
               ))}
           </ul>
         </div>
-        <div className="feed-sidebar">
+        <div className="sidebar">
           {user && (
             <NewPost />
           )}

@@ -1,17 +1,17 @@
-.feed {
+.main {
     display: flex;
-    justify-content: center;
-    flex-direction: row;
-    margin: auto;
-    margin-top: 50px;
-}
-
-.feed-main {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .feed {
     width: 65vw;
-}
-
-.feed-sidebar {
-    display: flex;            
+  }
+  
+  .sidebar {
+    flex: 1;
+    display: flex;
     justify-content: flex-end;
-    flex: 1;         
-}
+    min-width: 0;
+  }
+  
