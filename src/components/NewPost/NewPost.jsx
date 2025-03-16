@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { createPost } from '../../services/postService';
-import "./NewPost.css";
 
 const NewPost = () => {
   const navigate = useNavigate();
@@ -46,9 +45,8 @@ const NewPost = () => {
 
   return (
     <main>
-      <p className="title">Create Post</p>
-      {message && <p className="error">{message}</p>}
       <form autoComplete='off' onSubmit={handleSubmit}>
+        <p className="title">Create Post</p>
         <div>
           <label htmlFor='title'>Title:</label>
           <input
@@ -85,9 +83,10 @@ const NewPost = () => {
             required
           />
         </div>
-        <div>
+        <div className="buttons">
           <button type="submit">Contribute to the Zeitgeist</button>
         </div>
+        {message && <p className="error">{message}</p>}
       </form>
     </main>
   );

@@ -2,17 +2,15 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import "./Post.css";
 import io from 'socket.io-client';
 const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
-import { vote } from "../../services/postService";
+import { vote, deletePost } from "../../services/postService";
 import { FaThumbsUp, FaThumbsDown, FaEdit, FaTrash } from 'react-icons/fa';
 import { UserContext } from '../../contexts/UserContext';
 
-const Post = ({ post, onUpdatePost }) => {
-
+const Post = ({ post, onUpdatePost, onEditPost }) => {
   const [votes, setVotes] = useState(post.currentVoteTotal);
   const [userVoted, setUserVoted] = useState(post.currentUserVote);
   const [usersVote, setUsersVote] = useState(post.currentUserVote !== null);
   const { user } = useContext(UserContext);
-
   const socketRef = useRef(null);
 
   useEffect(() => {
@@ -36,8 +34,8 @@ const Post = ({ post, onUpdatePost }) => {
 
   useEffect(() => {
     if(post.currentUserVote) { 
-        setUsersVote(post.currentUserVote);
-        setUserVoted(true); 
+      setUsersVote(post.currentUserVote);
+      setUserVoted(true); 
     }
   }, [post.votes]);
 
@@ -65,6 +63,14 @@ const Post = ({ post, onUpdatePost }) => {
     }
   };
 
+  const onDeletePost = async (postId) => {
+    try {
+      await deletePost(postId);
+    } catch (error) {
+      console.error("Error deleting the post:", error);
+    }
+  };  
+
   const linkUrl = /^https?:\/\//i.test(post.link) ? post.link : `http://${post.link}`;
    
   return (
@@ -73,40 +79,36 @@ const Post = ({ post, onUpdatePost }) => {
         <a href={linkUrl} className="post-title" target="_blank" rel="noopener noreferrer">
           {post.title}
         </a>
-        {
-        user && (post.user._id === user._id) && (
+        {user && (post.user._id === user._id || post.user === user._id) && (
           <div className="post-actions">
-            <span className="post-edit action-icon">
+            <span className="post-edit action-icon" onClick={() => onEditPost(post)}>
               <FaEdit />
             </span>
-            <span className="post-delete action-icon">
+            <span className="post-delete action-icon" onClick={() => onDeletePost(post._id)}>   
               <FaTrash />
             </span>
           </div>
-        )
-        }
-        
-        
+        )}
       </div>
       <div className="post-body">
         <div className="post-left">
           <div className="post-votes-container">
             <p className="post-votes">{votes}</p>
             { user && (
-                <>
-                    <span
-                    className={`vote-icon ${usersVote === 1 ? 'voted' : ''}`}
-                    onClick={(!userVoted || (userVoted && usersVote === -1)) ? handleUpvote : undefined}
-                    >
-                    <FaThumbsUp />
-                    </span>
-                    <span
-                    className={`vote-icon ${usersVote === -1 ? 'voted' : ''}`}
-                    onClick={(!userVoted || (userVoted && usersVote === 1)) ? handleDownvote : undefined}
-                    >
-                    <FaThumbsDown />
-                    </span>
-                </>
+              <>
+                <span
+                  className={`vote-icon ${usersVote === 1 ? 'voted' : ''}`}
+                  onClick={(!userVoted || (userVoted && usersVote === -1)) ? handleUpvote : undefined}
+                >
+                  <FaThumbsUp />
+                </span>
+                <span
+                  className={`vote-icon ${usersVote === -1 ? 'voted' : ''}`}
+                  onClick={(!userVoted || (userVoted && usersVote === 1)) ? handleDownvote : undefined}
+                >
+                  <FaThumbsDown />
+                </span>
+              </>
             )}
           </div>
         </div>

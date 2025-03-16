@@ -20,7 +20,7 @@ const NavBar = () => {
           <span className="nav-title">Zeitgeist</span>
         </div>
         <div className="right">
-          {user && (
+          {user ? (
             <>
               <span className="link">
                 <Link to="/">
@@ -43,6 +43,17 @@ const NavBar = () => {
                   <div className="icon-wrapper">
                     <span className="icon-label">Sign Out</span>
                     <VscSignOut className="icon" />
+                  </div>
+                </Link>
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="link">
+                <Link to="/">
+                  <div className="icon-wrapper">
+                    <span className="icon-label">Home</span>
+                    <FaHome className="icon" />
                   </div>
                 </Link>
               </span>

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Routes, Route } from 'react-router';
-
+import './App.css';
 import { UserContext } from './contexts/UserContext';
 
 import Feed from './components/Feed/Feed';
@@ -19,7 +19,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Feed />}  />
         <Route path="/sign-up" element={<SignUpForm />} />
-        <Route path="/sign-in" element={<SignInForm />} />
       </Routes>
     </>
   );

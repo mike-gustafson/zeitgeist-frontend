@@ -41,9 +41,8 @@ const SignUpForm = () => {
 
   return (
     <main>
-      <h1>Sign Up</h1>
-      <p>{message}</p>
       <form onSubmit={handleSubmit}>
+        <p>Sign Up</p>
         <div>
           <label htmlFor='username'>Username:</label>
           <input
@@ -82,6 +81,7 @@ const SignUpForm = () => {
           <button onClick={() => navigate('/')}>Cancel</button>
         </div>
       </form>
+      <p>{message}</p>
     </main>
   );
 };

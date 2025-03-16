@@ -122,11 +122,56 @@ const vote = async (postId, voteType) => {
     }
 }
 
+const updatePost = async (postId, updatedData) => {
+    try {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`${BASE_URL}/${postId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedData),
+        });
+        const data = await res.json();
+        if (data.err) {
+        throw new Error(data.err);
+        }
+        return data;
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+    }
+}
+
+const deletePost = async (postId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`${BASE_URL}/${postId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        });
+        const data = await res.json();
+        if (data.err) {
+        throw new Error(data.err);
+        }
+        return data;
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+    }
+}
+
 export {
     getAllUsersPosts,
     createPost,
     getAllPosts,
     getTopPosts,
     getRecentPosts,
-    vote
+    vote,
+    updatePost,
+    deletePost
 };

@@ -5,13 +5,17 @@
   }
   
   .feed {
-    width: 65vw;
+    width: 75%;
+    min-width: 550px;
+    justify-content: center;
+    padding: 25px;
   }
   
   .sidebar {
     flex: 1;
     display: flex;
-    justify-content: flex-end;
-    min-width: 0;
+    max-width: 500px;
+    justify-content: center;
+    padding: 25px;
   }
   
