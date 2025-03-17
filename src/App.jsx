@@ -6,7 +6,7 @@ import { UserContext } from './contexts/UserContext';
 import Feed from './components/Feed/Feed';
 import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
-import SignInForm from './components/SignInForm/SignInForm';
+import Profile from './components/Profile/Profile';
 
 const App = () => {
 
@@ -19,6 +19,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Feed />}  />
         <Route path="/sign-up" element={<SignUpForm />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </>
   );

@@ -52,9 +52,39 @@ const signIn = async (formData) => {
   }
 };
 
+const editProfile = async (formData) => {
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/edit`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (data.err) {
+      throw new Error(data.err);
+    }
+     if (data.user) {
+      return data.user;
+    }
+    throw new Error('Invalid response from server');
+    
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+}
+;
+
 export {
   signUp,
   signIn,
+  editProfile,
 };
 
 
