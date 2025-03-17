@@ -76,3 +76,9 @@
 .action-icon:hover {
     color: #007bff;
 }
+
+.comment {
+    border-top: 1px solid #ccc;
+    margin: 5px 0;
+    padding: 5px 0;
+}

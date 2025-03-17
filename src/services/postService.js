@@ -165,6 +165,32 @@ const deletePost = async (postId) => {
     }
 }
 
+const addComment = async (postId, comment) => {
+    try {
+        const token = localStorage.getItem('token');
+        const payload = {
+            text: comment.text,
+            post: postId,
+        }
+        const res = await fetch(`${BASE_URL}/${postId}/comment`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (data.err) {
+        throw new Error(data.err);
+        }
+        return data;
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+    }
+}
+
 export {
     getAllUsersPosts,
     createPost,
@@ -173,5 +199,6 @@ export {
     getRecentPosts,
     vote,
     updatePost,
-    deletePost
+    deletePost,
+    addComment
 };

@@ -3,8 +3,9 @@ import "./Post.css";
 import io from 'socket.io-client';
 const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
 import { vote, deletePost } from "../../services/postService";
-import { FaThumbsUp, FaThumbsDown, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaThumbsUp, FaThumbsDown, FaEdit, FaTrash, FaRegComment } from 'react-icons/fa';
 import { UserContext } from '../../contexts/UserContext';
+import { addComment } from '../../services/postService';
 
 const Post = ({ post, onUpdatePost, onEditPost }) => {
   const [votes, setVotes] = useState(post.currentVoteTotal);
@@ -12,21 +13,46 @@ const Post = ({ post, onUpdatePost, onEditPost }) => {
   const [usersVote, setUsersVote] = useState(post.currentUserVote !== null);
   const { user } = useContext(UserContext);
   const socketRef = useRef(null);
-
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+  const [newComment, setNewComment] = useState('');
+  
+  const handleAddComment = () => {
+    if (!newComment.trim()) return;
+    addComment(post._id, { text: newComment })
+      .then((updatedPost) => {
+        onUpdatePost(updatedPost);
+      })
+      .catch((error) => {
+        console.error("Error adding comment:", error);
+      });
+    setNewComment('');
+  };
   useEffect(() => {
     socketRef.current = io(BASE_URL);
+    
+    socketRef.current.on('newComment', (data) => {
+      if (data.postId === post._id) {
+        onUpdatePost({ ...post, comments: data.comments });
+        setIsCommentsOpen(true);
+        setNewComment('');
+      }
+    });
+  
     socketRef.current.on('vote', (data) => {
       if (data.postId === post._id) {
         setVotes(data.newVoteTotal);
         onUpdatePost({ ...post, currentVoteTotal: data.newVoteTotal });
       }
     });
+  
     return () => {
       if (socketRef.current) {
         socketRef.current.disconnect();
       }
     };
   }, [post._id, post, onUpdatePost]);
+  
+
 
   useEffect(() => {
     setVotes(post.currentVoteTotal);
@@ -71,6 +97,10 @@ const Post = ({ post, onUpdatePost, onEditPost }) => {
     }
   };  
 
+  const toggleComments = () => {
+    setIsCommentsOpen(!isCommentsOpen);
+  };
+
   const linkUrl = /^https?:\/\//i.test(post.link) ? post.link : `http://${post.link}`;
    
   return (
@@ -79,7 +109,8 @@ const Post = ({ post, onUpdatePost, onEditPost }) => {
         <a href={linkUrl} className="post-title" target="_blank" rel="noopener noreferrer">
           {post.title}
         </a>
-        {user && post.user && (post.user._id === user._id || post.user === user._id) && (          <div className="post-actions">
+        {user && post.user && (post.user._id === user._id || post.user === user._id) && (
+          <div className="post-actions">
             <span className="post-edit action-icon" onClick={() => onEditPost(post)}>
               <FaEdit />
             </span>
@@ -114,10 +145,41 @@ const Post = ({ post, onUpdatePost, onEditPost }) => {
         <div className="post-right">
           <p>{post.description}</p>
           {post.user && post.user.username && (
-          <p>Posted by: {post.user.username}</p>
-        )}
+            <p>Posted by: {post.user.username}</p>
+          )}
         </div>
       </div>
+      <div className="post-footer" onClick={toggleComments}>
+        <FaRegComment style={{ marginRight: '5px' }} />
+        <span>{post.comments ? post.comments.length : 0} Comments</span>
+      </div>
+      {isCommentsOpen && (
+        <div className="comments-section">
+          {post.comments && post.comments.length > 0 ? (
+            post.comments.map((comment) => (
+              <div key={comment._id} className="comment">
+                <div className="comment-content">
+                  <span>{comment.text}</span><br/>
+                  <small>Posted by: {comment.user.username || "Unknown"}</small>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No comments yet.</p>
+          )}
+          { user && (
+          <div className="add-comment">
+            <input 
+              type="text" 
+              placeholder="Add a comment..." 
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            />
+            <button onClick={handleAddComment}>Submit</button>
+          </div>
+            )}
+        </div>
+      )}
     </main>
   );
 };
