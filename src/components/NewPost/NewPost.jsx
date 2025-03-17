@@ -70,7 +70,7 @@ const NewPost = () => {
             required
           />
         </div>
-        <div>
+        <div className='form-link'>
           <input
             type='text'
             autoComplete='off'
@@ -81,9 +81,9 @@ const NewPost = () => {
             onChange={handleChange}
             required
           />
-        </div>
-        <div className="buttons">
-          <button type="submit">Contribute to the Zeitgeist</button>
+          <div className="buttons">
+            <button type="submit">Contribute to the Zeitgeist</button>
+          </div>
         </div>
         {message && <p className="error">{message}</p>}
       </form>

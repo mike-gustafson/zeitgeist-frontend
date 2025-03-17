@@ -4,11 +4,11 @@ form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 5px 3vw ;
+  padding: 05px 15px ;
   border: 1px solid #ccc;
   border-radius: 5px;
   max-width: 550px;
-  margin: 15px auto;
+  margin: 0 auto;
 }
 
 form p {
@@ -47,7 +47,8 @@ form input[type="password"]:focus {
 }
 
 form button {
-  padding: 0.75rem 1rem;
+  padding: 5px;
+  margin-left: 5px;
   font-size: 1rem;
   background-color: #007bff;
   color: #fff;
@@ -55,7 +56,7 @@ form button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-weight: 600;
+  font-weight: 400;
   width: fit-content;
 }
 
@@ -67,4 +68,11 @@ form button:hover {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+}
+
+.form-link {
+  flex-direction: row;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
