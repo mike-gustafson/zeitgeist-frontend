@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import { VscSignOut } from 'react-icons/vsc';
 import { FaRegUserCircle, FaHome } from 'react-icons/fa';
@@ -7,10 +7,19 @@ import './NavBar.css';
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
+  const location = useLocation();
 
   const handleSignOut = () => {
     setUser(null);
     localStorage.removeItem('token');
+  };
+
+  const handleHomeClick = (e) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+      window.location.reload();
+    }
   };
 
   return (
@@ -23,7 +32,7 @@ const NavBar = () => {
           {user ? (
             <>
               <span className="link">
-                <Link to="/">
+                <Link to="/" onClick={handleHomeClick}>
                   <div className="icon-wrapper">
                     <span className="icon-label">Home</span>
                     <FaHome className="icon" />
@@ -31,7 +40,7 @@ const NavBar = () => {
                 </Link>
               </span>
               <span className="link">
-                <Link to="/">
+                <Link to="/profile">
                   <div className="icon-wrapper">
                     <span className="icon-label">Profile</span>
                     <FaRegUserCircle className="icon" />
@@ -50,7 +59,7 @@ const NavBar = () => {
           ) : (
             <>
               <span className="link">
-                <Link to="/">
+                <Link to="/" onClick={handleHomeClick}>
                   <div className="icon-wrapper">
                     <span className="icon-label">Home</span>
                     <FaHome className="icon" />
