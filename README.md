@@ -1,12 +1,11 @@
-# React + Vite
+# Zeitgeist
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Zeitgeist is a dynamic social platform that empowers users to share and discover trending content through community engagement. Users can create posts, cast votes, and comment on contributions in real time, allowing the community to collectively determine the prominence of content based on its popularity. The app integrates features such as upvoting, downvoting, and post management (editing and deletion) while using real-time updates to keep all interactions current. This combination of user-driven content and interactive features creates a vibrant space for dialogue and the continuous surfacing of relevant topics.
 
-Currently, two official plugins are available:
+# Purpose
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Zeitgeist outperforms competitors like Reddit, Hacker News, and even legacy giants like Twitter and Facebook by delivering a real-time, community-driven experience that truly keeps pace with today's fast-moving trends. Unlike Reddit's clunky interface or Hacker News's dated design, Zeitgeist leverages modern React-based front-end architecture and Socket.IO-powered live updates to create a seamless, interactive platform where every vote and comment is instantly reflected. This means users enjoy a smoother, more intuitive environment for sharing and discovering content, with precise post management and instant community feedback that makes the platform not only more engaging but also more effective at surfacing the most relevant discussions and insights.
 
-## Expanding the ESLint configuration
+# Tech Stack
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The frontend of Zeitgeist is built with React, harnessing modern JavaScript techniques like hooks and context for state management, along with CSS and react-icons to deliver a sleek and interactive user interface. Real-time functionality is achieved using Socket.IO, which enables instant updates and seamless user interactions. On the backend, the application utilizes Node.js with Express, coupled with MongoDB as the primary database. Mongoose serves as an object data modeling tool, streamlining interactions with MongoDB, while Socket.IO facilitates real-time communication between the server and connected clients, ensuring that votes, posts, and comments are updated live.
