@@ -46,38 +46,37 @@ const NewPost = () => {
   return (
     <main>
       <form autoComplete='off' onSubmit={handleSubmit}>
-        <p className="title">Create Post</p>
         <div>
-          <label htmlFor='title'>Title:</label>
           <input
             type='text'
             autoComplete='off'
             id='title'
             name='title'
+            placeholder='Enter a title'
             value={formData.title}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor='description'>Description:</label>
           <input
             type='text'
             autoComplete='off'
             id='description'
             name='description'
+            placeholder='Enter a description'
             value={formData.description}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor='link'>Link:</label>
           <input
             type='text'
             autoComplete='off'
             id='link'
             name='link'
+            placeholder='Enter a link'
             value={formData.link}
             onChange={handleChange}
             required
